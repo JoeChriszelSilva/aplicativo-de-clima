@@ -1,36 +1,91 @@
-// Importa as funções dos outros módulos
-import { getWeatherData } from "./api.js";
-import { renderWeather, displayError } from "./ui.js";
+import { fetchWeatherData } from "./api.js";
+import {
+  updateWeatherDisplay,
+  displayError,
+  showLoading,
+  hideLoading,
+} from "./ui.js";
 
-// Seleciona os elementos do DOM
-const form = document.getElementById("city-form");
-const cityInput = document.getElementById("city-input");
+document.addEventListener("DOMContentLoaded", () => {
+  const searchForm = document.getElementById("search-form");
+  const cityInput = document.getElementById("city-input");
 
-// Define a função que será executada ao enviar o formulário
-async function handleFormSubmit(event) {
-  event.preventDefault(); // Impede o recarregamento da página
-
-  const cityName = cityInput.value.trim();
-
-  if (cityName === "") {
-    displayError("Por favor, digite o nome de uma cidade.");
+  if (!searchForm || !cityInput) {
+    console.error(
+      "ERRO FATAL: Elementos do formulário (search-form ou city-input) não encontrados no DOM."
+    );
+    const resultsContainer = document.getElementById("weather-results");
+    if (resultsContainer) {
+      resultsContainer.innerHTML =
+        '<p class="error">Erro de inicialização: Recarregue a página e verifique se o index.html tem os IDs corretos.</p>';
+    }
     return;
   }
 
-  try {
-    // 1. Lógica para buscar os dados (chama o módulo api.js)
-    const weatherData = await getWeatherData(cityName);
+  searchForm.addEventListener("submit", handleSearchSubmit);
+  console.log("App Inicializado: Event Listener do formulário configurado.");
+});
 
-    // 2. Lógica para exibir os dados (chama o módulo ui.js)
-    renderWeather(weatherData, cityName);
+async function handleSearchSubmit(e) {
+  e.preventDefault(); // IMPEDE O RECARREGAMENTO DA PÁGINA
+
+  const rawInput = document.getElementById("city-input").value.trim();
+
+  const cities = rawInput
+    .split(",")
+    .map((city) => city.trim())
+    .filter((city) => city.length > 0);
+
+  if (cities.length === 0) {
+    displayError(
+      "Por favor, digite uma ou mais cidades separadas por vírgula."
+    );
+    return;
+  }
+
+  console.log("Cidades a buscar:", cities);
+  showLoading();
+
+  try {
+    const weatherPromises = cities.map((city) => fetchWeatherData(city));
+    const results = await Promise.allSettled(weatherPromises);
+
+    const successfulResults = [];
+    let errorCount = 0;
+
+    results.forEach((result) => {
+      if (result.status === "fulfilled") {
+        successfulResults.push(result.value);
+      } else {
+        errorCount++;
+        console.error(`Falha na busca da cidade. Motivo:`, result.reason);
+      }
+    });
+
+    if (successfulResults.length > 0) {
+      updateWeatherDisplay(successfulResults);
+      console.log("Resultados exibidos com sucesso.", successfulResults);
+
+      if (errorCount > 0) {
+        console.warn(
+          `${errorCount} cidade(s) não puderam ser carregadas. Verifique o nome.`
+        );
+      }
+    } else if (errorCount > 0) {
+      displayError(
+        `Falha total: Nenhuma cidade foi carregada. ${errorCount} erro(s) de busca.`
+      );
+    } else {
+      displayError(
+        "Nenhum resultado encontrado (entrada vazia ou erro inesperado)."
+      );
+    }
   } catch (error) {
-    // 3. Lógica para tratar e exibir erros
-    displayError(error.message);
+    displayError(
+      "Ocorreu um erro inesperado durante o processo de busca/exibição."
+    );
+    console.error("Erro fatal no handleSearchSubmit:", error);
+  } finally {
+    hideLoading();
   }
 }
-
-// Adiciona o 'ouvinte' (listener) de evento ao formulário
-form.addEventListener("submit", handleFormSubmit);
-
-// Dica: Chame uma função de inicialização se precisar de algo ao carregar
-// console.log("Aplicação de clima iniciada.");
