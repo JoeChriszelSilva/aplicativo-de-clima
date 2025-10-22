@@ -14,8 +14,12 @@ export function hideLoading() {
   loadingIndicator.classList.add("hidden");
 }
 
+/**
+ * Exibe os resultados do clima para todas as cidades.
+ * @param {Array<object>} weatherResults Array de objetos de clima.
+ */
 export function updateWeatherDisplay(weatherResults) {
-  resultsContainer.innerHTML = "";
+  resultsContainer.innerHTML = ""; // Limpa resultados anteriores
 
   if (weatherResults.length === 0) {
     resultsContainer.innerHTML =
@@ -29,24 +33,27 @@ export function updateWeatherDisplay(weatherResults) {
   });
 }
 
+/**
+ * Cria o cartão HTML para uma única cidade.
+ */
 function createCityCard(data) {
   const card = document.createElement("div");
-  card.className = "city-card"; // Dados atuais
+  card.className = "city-card"; // Formatação de Dados
 
   const currentTemp = data.current.temperature_2m;
   const humidity = data.current.relative_humidity_2m;
   const windSpeed = data.current.wind_speed_10m;
   const weatherCode = data.current.weather_code;
-  const isDay = data.current.is_day; // Obtém detalhes do clima e o ícone
+  const isDay = data.current.is_day; // Valor de 0 (noite) ou 1 (dia) // NOVO: Obter detalhes do clima e o ícone
 
-  const { description, iconClass } = getWeatherDetails(weatherCode, isDay); // HTML para o clima atual
+  const { description, iconClass } = getWeatherDetails(weatherCode, isDay); // HTML para as informações atuais e detalhes - AGORA INCLUI O ÍCONE
 
   let htmlContent = `
         <h2>${data.city}, ${data.country}</h2>
         
         <div class="current-details">
             <p>
-                                <i class="${iconClass}" style="font-size: 2em; margin-right: 15px; vertical-align: middle;"></i>
+                <i class="${iconClass}" style="font-size: 2em; margin-right: 15px; vertical-align: middle;"></i>
                 <strong>${currentTemp}°C</strong>
             </p>
             <p><strong>Condição:</strong> ${description}</p>
@@ -88,6 +95,10 @@ function createCityCard(data) {
   return card;
 }
 
+/**
+ * Exibe uma mensagem de erro na área de resultados.
+ * @param {string} message A mensagem de erro.
+ */
 export function displayError(message) {
   resultsContainer.innerHTML = `<p class="error">${message}</p>`;
   hideLoading();

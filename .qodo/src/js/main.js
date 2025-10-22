@@ -1,3 +1,5 @@
+// src/js/main.js
+
 import { fetchWeatherData } from "./api.js";
 import {
   updateWeatherDisplay,
@@ -12,22 +14,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!searchForm || !cityInput) {
     console.error(
-      "ERRO FATAL: Elementos do formulário (search-form ou city-input) não encontrados no DOM."
+      "ERRO FATAL: Elementos do formulário não encontrados no DOM."
     );
     const resultsContainer = document.getElementById("weather-results");
     if (resultsContainer) {
       resultsContainer.innerHTML =
-        '<p class="error">Erro de inicialização: Recarregue a página e verifique se o index.html tem os IDs corretos.</p>';
+        '<p class="error">Erro de inicialização: Recarregue a página.</p>';
     }
     return;
   }
 
   searchForm.addEventListener("submit", handleSearchSubmit);
-  console.log("App Inicializado: Event Listener do formulário configurado.");
 });
 
 async function handleSearchSubmit(e) {
-  e.preventDefault(); // IMPEDE O RECARREGAMENTO DA PÁGINA
+  e.preventDefault();
 
   const rawInput = document.getElementById("city-input").value.trim();
 
@@ -43,7 +44,6 @@ async function handleSearchSubmit(e) {
     return;
   }
 
-  console.log("Cidades a buscar:", cities);
   showLoading();
 
   try {
@@ -64,7 +64,6 @@ async function handleSearchSubmit(e) {
 
     if (successfulResults.length > 0) {
       updateWeatherDisplay(successfulResults);
-      console.log("Resultados exibidos com sucesso.", successfulResults);
 
       if (errorCount > 0) {
         console.warn(

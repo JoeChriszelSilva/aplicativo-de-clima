@@ -1,4 +1,4 @@
-/* src/css/styles.css - Cores da Bandeira Transgênero */
+/* src/css/styles.css - Cores da Bandeira Transgênero e Melhorias de Layout */
 
 /* Variáveis de cor para facilitar a manutenção */
 :root {
@@ -13,28 +13,87 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-color: var(--trans-blue); /* Fundo principal com azul trans */
+  font-size: 1.05em;
+
+  /* 🛑 NOVO BACKGROUND: Padrão Listrado Horizontal da Bandeira Trans 🛑 */
+  /* Cada cor ocupa 20% do espaço (1/5) */
+  background: linear-gradient(
+    to bottom,
+    var(--trans-blue) 0%,
+    /* Azul: 0% a 20% */ var(--trans-blue) 20%,
+    var(--trans-pink) 20%,
+    /* Rosa: 20% a 40% */ var(--trans-pink) 40%,
+    var(--trans-white) 40%,
+    /* Branco: 40% a 60% (CENTRO) */ var(--trans-white) 60%,
+    var(--trans-pink) 60%,
+    /* Rosa: 60% a 80% */ var(--trans-pink) 80%,
+    var(--trans-blue) 80%,
+    /* Azul: 80% a 100% */ var(--trans-blue) 100%
+  );
+  background-attachment: fixed;
+
   color: var(--text-dark);
   margin: 0;
   padding: 0;
-  /* Ajuste de layout: Removedo 'display: flex' e 'min-height: 100vh' para simplificar */
-  min-height: 100vh; /* Mantido para garantir que o fundo preencha a tela */
+  min-height: 100vh;
 }
+/* src/css/styles.css */
+
+/* ... (Mantenha as variáveis de cor e outras regras) ... */
+
+body {
+  font-family: Arial, sans-serif;
+  font-size: 1.05em;
+
+  /* 🛑 NOVO BACKGROUND: Gradiente Suave que simula as 5 listras Trans 🛑 */
+  background: linear-gradient(
+    to bottom,
+    /* Azul (Topo) */ var(--trans-blue) 0%,
+    var(--trans-blue) 18%,
+
+    /* Azul dominante na primeira parte */ /* Transição Suave para Rosa */
+      var(--trans-pink) 25%,
+    var(--trans-pink) 35%,
+
+    /* Rosa dominante na segunda parte */ /* Transição Suave para Branco */
+      var(--trans-white) 45%,
+    var(--trans-white) 55%,
+
+    /* Branco dominante no centro */ /* Transição Suave para Rosa */
+      var(--trans-pink) 65%,
+    var(--trans-pink) 75%,
+
+    /* Rosa dominante na quarta parte */ /* Transição Suave para Azul */
+      var(--trans-blue) 82%,
+    var(--trans-blue) 100% /* Azul (Base) */
+  );
+  background-attachment: fixed;
+
+  color: var(--text-dark);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* ... (Mantenha o restante do CSS inalterado) ... */
 
 .container {
   width: 90%;
   max-width: 1200px;
   padding: 20px;
-  background: var(--trans-white); /* Container principal branco */
+  /* MELHORIA 2: Container ligeiramente translúcido e bordas mais suaves */
+  background: rgba(255, 255, 255, 0.95);
   box-shadow: 0 0 10px var(--shadow-light);
-  /* Centraliza o container usando margens automáticas */
   margin: 30px auto;
-  border-radius: 8px;
+  border-radius: 12px;
 }
 
 h1 {
   text-align: center;
-  color: var(--trans-pink); /* Título principal em rosa trans */
+  color: var(--trans-pink);
+  /* MELHORIA 1: Tipografia H1 */
+  font-size: 2.2em;
+  line-height: 1.2;
   margin-bottom: 20px;
   text-shadow: 1px 1px 2px var(--shadow-light);
 }
@@ -42,6 +101,8 @@ h1 {
 p {
   text-align: center;
   color: var(--text-dark);
+  /* MELHORIA 1: Tipografia P */
+  margin-top: 5px;
   margin-bottom: 25px;
 }
 
@@ -54,32 +115,37 @@ p {
 #city-input {
   flex-grow: 1;
   padding: 12px;
-  border: 1px solid var(--trans-pink); /* Borda do input em rosa */
+  /* MELHORIA 3: Borda mais grossa */
+  border: 2px solid var(--trans-pink);
   border-radius: 6px;
   font-size: 1em;
   outline: none;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 #city-input:focus {
-  border-color: var(--trans-blue); /* Foco em azul trans */
-  box-shadow: 0 0 5px rgba(91, 206, 250, 0.5); /* Sombra suave azul */
+  border-color: var(--trans-blue);
+  /* MELHORIA 3: Sombra mais visível ao focar */
+  box-shadow: 0 0 8px rgba(91, 206, 250, 0.7);
 }
 
 button {
   padding: 12px 20px;
-  background-color: var(--trans-pink); /* Botão em rosa trans */
-  color: var(--trans-white); /* Texto do botão em branco */
+  background-color: var(--trans-pink);
+  color: var(--trans-white);
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-size: 1em;
   font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  /* MELHORIA 3: Espaçamento de letras */
+  letter-spacing: 0.5px;
+  transition: background-color 0.3s ease, transform 0.2s ease,
+    box-shadow 0.3s ease;
 }
 
 button:hover {
-  background-color: var(--trans-blue); /* Hover do botão em azul trans */
+  background-color: var(--trans-blue);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px var(--shadow-light);
 }
@@ -93,10 +159,11 @@ button:hover {
 }
 
 .city-card {
-  border: 1px solid var(--trans-pink); /* Borda do cartão em rosa */
+  /* MELHORIA 5: Remove a borda e usa a sombra como separador */
+  border: none;
   padding: 25px;
   border-radius: 10px;
-  background-color: #fcfcfc; /* Fundo suave para os cartões */
+  background-color: var(--trans-white);
   box-shadow: 0 4px 10px var(--shadow-light);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -108,47 +175,66 @@ button:hover {
 
 .city-card h2 {
   margin-top: 0;
-  border-bottom: 2px solid var(--trans-blue); /* Linha divisória em azul trans */
+  border-bottom: 2px solid var(--trans-blue);
   padding-bottom: 10px;
-  color: var(--trans-blue); /* Título do cartão em azul trans */
+  color: var(--trans-blue);
   font-size: 1.6em;
+  /* MELHORIA 5: Bold para o título do cartão */
+  font-weight: 700;
   margin-bottom: 15px;
 }
 
+/* MELHORIA 4: DESTAQUE NA TEMPERATURA E CONDIÇÃO ATUAL */
 .current-details p {
   margin: 8px 0;
   font-size: 1.15em;
   color: var(--text-dark);
-  text-align: left; /* Alinha o texto à esquerda para detalhes */
+  text-align: left;
+  font-weight: 500;
+}
+
+/* NOVO BLOCO: Estilo para a temperatura principal */
+.current-details p:first-child {
+  font-size: 2.5em;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  text-align: left; /* Garante alinhamento esquerdo mesmo com o aumento */
+}
+
+.current-details p:first-child strong {
+  font-weight: bold;
 }
 
 .current-details p strong {
-  color: var(--trans-blue); /* Temperatura e detalhes em azul trans */
+  color: var(--trans-blue);
 }
 
 /* Estilo para o ícone principal */
 .current-details i {
-  color: var(--trans-pink); /* Ícone principal em rosa trans */
+  color: var(--trans-pink);
+  /* Ajusta o alinhamento vertical para ícones grandes */
+  vertical-align: middle;
 }
 
 .forecast {
   margin-top: 30px;
   padding-top: 15px;
-  border-top: 1px dashed var(--trans-pink); /* Divisor da previsão em rosa */
+  border-top: 1px dashed var(--trans-pink);
 }
 
 .forecast h4 {
-  color: var(--trans-blue); /* Título da previsão em azul trans */
+  color: var(--trans-blue);
   font-size: 1.2em;
   margin-bottom: 15px;
 }
 
+/* MELHORIA 6: PREVISÃO DIÁRIA COM FLEXBOX PARA ALINHAMENTO */
 .forecast-day {
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Alinha verticalmente */
-  padding: 8px 0;
-  border-bottom: 1px dotted rgba(245, 169, 184, 0.5); /* Linha dotted rosa suave */
+  align-items: center;
+  padding: 10px 0; /* Aumenta o padding vertical */
+  border-bottom: 1px dotted rgba(245, 169, 184, 0.5);
   color: var(--text-dark);
   font-size: 1em;
 }
@@ -161,8 +247,24 @@ button:hover {
   font-weight: normal;
 }
 
+.forecast-day span:first-child {
+  flex-basis: 20%;
+  font-weight: bold !important;
+}
+
+.forecast-day span:nth-child(2) {
+  flex-basis: 50%;
+}
+
+.forecast-day span:last-child {
+  flex-basis: 30%;
+  text-align: right;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
 .forecast-day i {
-  color: var(--trans-pink); /* Ícones da previsão em rosa trans */
+  color: var(--trans-pink);
   margin-right: 5px;
 }
 
@@ -179,7 +281,7 @@ button:hover {
 
 #loading {
   text-align: center;
-  color: var(--trans-blue); /* Carregando em azul trans */
+  color: var(--trans-blue);
   font-weight: bold;
   margin: 20px 0;
 }
@@ -190,18 +292,41 @@ button:hover {
 
 /* Media Queries para Responsividade */
 @media (max-width: 768px) {
+  /* MELHORIA 7: AJUSTES PARA MOBILE */
   .container {
     width: 95%;
     padding: 15px;
-    margin: 15px auto; /* Ajuste a margem para telas menores */
+    margin: 15px auto;
   }
+
+  h1 {
+    font-size: 1.8em;
+  }
+
   #search-form {
     flex-direction: column;
   }
+
   button {
     width: 100%;
   }
+
   .results-container {
-    grid-template-columns: 1fr; /* Uma coluna em telas pequenas */
+    grid-template-columns: 1fr;
+  }
+
+  /* Redução da fonte da temperatura principal no mobile */
+  .current-details p:first-child {
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .current-details p {
+    text-align: center; /* Centraliza outros detalhes no mobile */
+  }
+
+  .forecast-day {
+    font-size: 0.9em;
   }
 }

@@ -1,40 +1,56 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+   
   <head>
+       
     <meta charset="UTF-8" />
+       
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+       
     <title>Multi-Clima App</title>
+               
     <link rel="stylesheet" href="src/css/styles.css" />
+                   
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMD/cd2gLzO/8wHkO/6F7tBvjL/6e9S+tV0GjLg8BqgA3S3kE4K+JgA7N/8X9g=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
     />
+     
   </head>
+   
   <body>
+       
     <div class="container">
+           
       <h1>Clima Múltiplo</h1>
+           
       <p>
-        Digite as cidades separadas por vírgula (ex: Rio de Janeiro, São Paulo).
+                Digite as cidades separadas por vírgula (ex: Rio de Janeiro, São
+        Paulo).      
       </p>
 
+           
       <form id="search-form">
+               
         <input
           type="text"
           id="city-input"
           placeholder="Digite as cidades..."
           required
         />
-        <button type="submit">Buscar Clima</button>
+                <button type="submit">Buscar Clima</button>      
       </form>
 
+                 
       <div id="loading" class="hidden">Carregando...</div>
 
+           
       <div id="weather-results" class="results-container"></div>
+         
     </div>
 
+           
     <script type="module" src="src/js/main.js"></script>
+     
   </body>
 </html>
