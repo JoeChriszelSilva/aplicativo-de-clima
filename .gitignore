@@ -1,0 +1,13 @@
+# Dependências
+/node_modules
+
+# Arquivos de log e cache do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de configuração do VS Code (opcional, mas recomendado)
+.vscode/
+
+# Arquivos de build (se você for usar dist/ ou build/)
+/dist
+/build

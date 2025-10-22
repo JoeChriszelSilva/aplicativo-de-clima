@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>App de Clima Simples</title>
+    <link rel="stylesheet" href="./src/css/styles.css" />
+  </head>
+  <body>
+    <div class="weather-container">
+      <h1>Qual o Clima?</h1>
+
+      <form id="city-form">
+        <input
+          type="text"
+          id="city-input"
+          placeholder="Digite o nome da cidade..."
+          required
+        />
+        <button type="submit">Buscar</button>
+      </form>
+
+      <div id="weather-results"></div>
+
+      <div id="error-message" class="hidden"></div>
+    </div>
+
+    <script type="module" src="src/js/main.js"></script>
+  </body>
+</html>
