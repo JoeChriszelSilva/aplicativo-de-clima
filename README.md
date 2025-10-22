@@ -1,10 +1,10 @@
-# 🌈 Aplicativo de Clima Simples (Tema Trans)
+#  Aplicativo de Clima Simples
 
 ## Visão Geral do Projeto
 
 Este é um aplicativo web simples para consulta de condições climáticas. Ele permite que o usuário digite o nome de uma cidade e receba dados como temperatura e velocidade do vento, utilizando a API **Open-Meteo**.
 
-O projeto foi construído com foco em organização e um design moderno, utilizando as cores vibrantes da **Bandeira do Orgulho Transgênero** (Azul Claro, Rosa e Branco) para criar um layout inclusivo e visualmente agradável.
+O projeto foi construído com foco em organização e um design moderno, utilizando as cores vibrantes da para criar um layout inclusivo e visualmente agradável.
 
 ---
 
